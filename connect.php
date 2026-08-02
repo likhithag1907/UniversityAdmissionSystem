@@ -4,7 +4,7 @@ $host = "localhost";
 $port = "5432";
 $dbname = "UniversityAdmissionsSystem";
 $user = "postgres";
-$password = "190706";
+$password = "your_postgresql_password";
 
 $conn = pg_connect(
     "host=$host 
