@@ -1,0 +1,714 @@
+<!-- ==========================================================
+     University Admission Management System
+
+     File: index.html
+
+     Purpose:
+     This file defines the user interface of the web
+     application. It contains the dashboard, student
+     management pages, student registration form,
+     edit dialog and links to the stylesheet and
+     JavaScript functionality.
+========================================================== -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>UniAdmit — University Admission Management System</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+</head>
+
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+
+    <div class="sidebar-brand">
+      <div class="brand-icon">
+        <i class="fas fa-university"></i>
+      </div>
+
+      <div class="brand-text">
+        <span class="brand-name">UniAdmit</span>
+        <span class="brand-sub">Management System</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a href="#" class="nav-item active" data-section="dashboard">
+        <i class="fas fa-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="#" class="nav-item" data-section="students">
+        <i class="fas fa-users"></i>
+        <span>All Students</span>
+      </a>
+
+      <a href="#" class="nav-item" data-section="add">
+        <i class="fas fa-user-plus"></i>
+        <span>Add Student</span>
+      </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+
+      <div class="user-badge">
+
+        <div class="user-avatar">
+          <i class="fas fa-user-shield"></i>
+        </div>
+
+        <div>
+          <div class="user-role">Admin</div>
+          <div class="user-dept">Registry Office</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <button class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="page-title" id="pageTitle">
+          Dashboard
+        </div>
+
+      </div>
+
+      <div class="topbar-right">
+
+        <div class="search-wrap">
+          <i class="fas fa-search"></i>
+
+          <input
+            type="text"
+            id="globalSearch"
+            placeholder="Search by name or student ID…"
+          />
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- SECTION: Dashboard -->
+    <section class="section active" id="section-dashboard">
+
+      <div class="section-header">
+        <h1>
+          Welcome back, Admin
+          <span class="wave">👋</span>
+        </h1>
+
+        <p>
+          Here's a real-time overview of your admission data.
+        </p>
+      </div>
+
+
+      <div class="stats-grid">
+
+        <div class="stat-card" id="stat-total">
+
+          <div class="stat-icon teal">
+            <i class="fas fa-id-card"></i>
+          </div>
+
+          <div class="stat-info">
+            <span class="stat-num" id="totalCount">—</span>
+            <span class="stat-label">Total Students</span>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card" id="stat-paid">
+
+          <div class="stat-icon green">
+            <i class="fas fa-check-circle"></i>
+          </div>
+
+          <div class="stat-info">
+            <span class="stat-num" id="paidCount">—</span>
+            <span class="stat-label">Paid</span>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card" id="stat-pending">
+
+          <div class="stat-icon amber">
+            <i class="fas fa-clock"></i>
+          </div>
+
+          <div class="stat-info">
+            <span class="stat-num" id="pendingCount">—</span>
+            <span class="stat-label">Pending</span>
+          </div>
+
+        </div>
+
+
+        <div class="stat-card" id="stat-grad">
+
+          <div class="stat-icon purple">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+
+          <div class="stat-info">
+            <span class="stat-num" id="gradCount">—</span>
+            <span class="stat-label">Graduated</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="recent-section">
+
+        <div class="section-sub-header">
+
+          <h2>Recent Admissions</h2>
+
+          <button
+            class="btn-link"
+            onclick="showSection('students')"
+          >
+            View all →
+          </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+          <table class="data-table" id="recentTable">
+
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Full Name</th>
+                <th>Department</th>
+                <th>Course</th>
+                <th>Payment</th>
+              </tr>
+            </thead>
+
+            <tbody id="recentBody">
+              <tr>
+                <td colspan="5" class="loading">
+                  Loading…
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SECTION: All Students -->
+    <section class="section" id="section-students">
+
+      <div class="section-header">
+        <h1>Student Records</h1>
+
+        <p>
+          Manage all registered student admissions.
+        </p>
+      </div>
+
+
+      <div class="toolbar">
+
+        <div class="filter-group">
+
+          <label for="filterPayment">
+            Filter by Payment:
+          </label>
+
+          <select id="filterPayment">
+            <option value="">All</option>
+            <option value="Paid">Paid</option>
+            <option value="Pending">Pending</option>
+            <option value="Graduated">Graduated</option>
+          </select>
+
+        </div>
+
+
+        <button
+          class="btn btn-primary"
+          onclick="showSection('add')"
+        >
+          <i class="fas fa-plus"></i>
+          Add Student
+        </button>
+
+      </div>
+
+
+      <div class="table-wrap">
+
+        <table class="data-table" id="studentsTable">
+
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Student ID</th>
+              <th>Full Name</th>
+              <th>Department</th>
+              <th>Course</th>
+              <th>Payment</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody id="studentsBody">
+            <tr>
+              <td colspan="7" class="loading">
+                Loading…
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- SECTION: Add Student -->
+    <section class="section" id="section-add">
+
+      <div class="section-header">
+
+        <h1>Add New Student</h1>
+
+        <p>
+          Fill in the form to register a new admission.
+        </p>
+
+      </div>
+
+
+      <div class="form-card">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="f_student_id">
+              Student ID
+              <span class="req">*</span>
+            </label>
+
+            <input
+              type="text"
+              id="f_student_id"
+              placeholder="e.g. STU-2024-001"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="f_full_name">
+              Full Name
+              <span class="req">*</span>
+            </label>
+
+            <input
+              type="text"
+              id="f_full_name"
+              placeholder="e.g. Jane Smith"
+            />
+
+          </div>
+
+
+          <!-- Department dropdown -->
+          <div class="form-group">
+
+            <label for="f_department">
+              Department
+              <span class="req">*</span>
+            </label>
+
+            <select id="f_department">
+
+              <option value="">
+                — Select Department —
+              </option>
+
+              <option value="Computer Science">
+                Computer Science
+              </option>
+
+              <option value="Data Science">
+                Data Science
+              </option>
+
+              <option value="Business Administration">
+                Business Administration
+              </option>
+
+              <option value="Engineering">
+                Engineering
+              </option>
+
+              <option value="Information Technology">
+                Information Technology
+              </option>
+
+              <option value="Mathematics">
+                Mathematics
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Course dropdown -->
+          <div class="form-group">
+
+            <label for="f_course">
+              Course
+              <span class="req">*</span>
+            </label>
+
+            <select id="f_course">
+
+              <option value="">
+                — Select Course —
+              </option>
+
+              <option value="BSc Computer Science">
+                BSc Computer Science
+              </option>
+
+              <option value="BSc Data Science">
+                BSc Data Science
+              </option>
+
+              <option value="BSc Software Engineering">
+                BSc Software Engineering
+              </option>
+
+              <option value="MSc Data Analytics">
+                MSc Data Analytics
+              </option>
+
+              <option value="MSc Web Development">
+                MSc Web Development
+              </option>
+
+              <option value="MBA Business Administration">
+                MBA Business Administration
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="f_payment_status">
+              Payment Status
+              <span class="req">*</span>
+            </label>
+
+            <select id="f_payment_status">
+
+              <option value="">
+                — Select —
+              </option>
+
+              <option value="Paid">
+                Paid
+              </option>
+
+              <option value="Pending">
+                Pending
+              </option>
+
+              <option value="Graduated">
+                Graduated
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            class="btn btn-outline"
+            onclick="resetForm()"
+          >
+            Clear
+          </button>
+
+          <button
+            class="btn btn-primary"
+            onclick="submitStudent()"
+          >
+            <i class="fas fa-save"></i>
+            Save Student
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- EDIT MODAL -->
+  <div class="modal-overlay" id="editModal">
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <h2>
+          <i class="fas fa-user-edit"></i>
+          Edit Student
+        </h2>
+
+        <button
+          class="modal-close"
+          onclick="closeModal()"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <input type="hidden" id="edit_id" />
+
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="edit_student_id">
+              Student ID
+            </label>
+
+            <input
+              type="text"
+              id="edit_student_id"
+            />
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="edit_full_name">
+              Full Name
+            </label>
+
+            <input
+              type="text"
+              id="edit_full_name"
+            />
+
+          </div>
+
+
+          <!-- Edit Department dropdown -->
+          <div class="form-group">
+
+            <label for="edit_department">
+              Department
+            </label>
+
+            <select id="edit_department">
+
+              <option value="">
+                — Select Department —
+              </option>
+
+              <option value="Computer Science">
+                Computer Science
+              </option>
+
+              <option value="Data Science">
+                Data Science
+              </option>
+
+              <option value="Business Administration">
+                Business Administration
+              </option>
+
+              <option value="Engineering">
+                Engineering
+              </option>
+
+              <option value="Information Technology">
+                Information Technology
+              </option>
+
+              <option value="Mathematics">
+                Mathematics
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- Edit Course dropdown -->
+          <div class="form-group">
+
+            <label for="edit_course">
+              Course
+            </label>
+
+            <select id="edit_course">
+
+              <option value="">
+                — Select Course —
+              </option>
+
+              <option value="BSc Computer Science">
+                BSc Computer Science
+              </option>
+
+              <option value="BSc Data Science">
+                BSc Data Science
+              </option>
+
+              <option value="BSc Software Engineering">
+                BSc Software Engineering
+              </option>
+
+              <option value="MSc Data Analytics">
+                MSc Data Analytics
+              </option>
+
+              <option value="MSc Web Development">
+                MSc Web Development
+              </option>
+
+              <option value="MBA Business Administration">
+                MBA Business Administration
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="edit_payment_status">
+              Payment Status
+            </label>
+
+            <select id="edit_payment_status">
+
+              <option value="Paid">
+                Paid
+              </option>
+
+              <option value="Pending">
+                Pending
+              </option>
+
+              <option value="Graduated">
+                Graduated
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <button
+          class="btn btn-outline"
+          onclick="closeModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          class="btn btn-primary"
+          onclick="saveEdit()"
+        >
+          <i class="fas fa-check"></i>
+          Update
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Toast Message -->
+  <div class="toast" id="toast"></div>
+
+
+  <script src="interface.js"></script>
+
+</body>
+</html>
