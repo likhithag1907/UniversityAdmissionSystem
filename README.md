@@ -43,11 +43,17 @@ The application also includes client-side validation to improve data accuracy be
 | Technology |____________________| Purpose 
 
 | HTML5 |_________________________| Structure of the website 
-| CSS3 |__________________________| User interface styling 
-| JavaScript (ES6) |______________| Client-side functionality 
+
+| CSS3 |__________________________| User interface styling
+
+| JavaScript (ES6) |______________| Client-side functionality
+
 | PHP |___________________________| Backend processing 
+
 | PostgreSQL |____________________| Database management 
+
 | XAMPP (Apache) |________________| Local web server 
+
 | GitHub |________________________| Version control and project hosting 
 
 ---
