@@ -258,9 +258,20 @@ The following functionality has been successfully tested:
 Screenshots of the application interface will be added here.
 
 - Dashboard
+  <img width="1891" height="952" alt="Dashboard" src="https://github.com/user-attachments/assets/a811652d-d311-403b-a801-98ed05989727" />
+
 - Student Records
+  <img width="1910" height="952" alt="Student Records" src="https://github.com/user-attachments/assets/da929852-d12a-409d-85cf-89e54964533a" />
+
 - Add Student Form
+  <img width="1910" height="958" alt="Add Student" src="https://github.com/user-attachments/assets/1e17b1d1-568f-446d-b4c8-e82c2fbd0222" />
+
 - Edit Student Form
+  <img width="1917" height="887" alt="Edit Student" src="https://github.com/user-attachments/assets/29fa8001-17cc-48fb-bb1a-d5b7e54a450f" />
+
 - Responsive Mobile View
+  <img width="342" height="767" alt="Mobile View 1" src="https://github.com/user-attachments/assets/ef687267-dc80-442c-b111-c4972df00700" />
+<img width="346" height="765" alt="Mobile View 2" src="https://github.com/user-attachments/assets/ff3e0ca4-cf4f-4b3b-9cc2-a60739a4cc46" />
+
 
 ---
