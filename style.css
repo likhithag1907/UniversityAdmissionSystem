@@ -104,6 +104,7 @@ body { display: flex; min-height: 100vh; overflow-x: hidden; }
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 0; /* Prevent wide tables from expanding the whole page */
 }
 
 /* ─── TOPBAR ─── */
@@ -137,7 +138,14 @@ body { display: flex; min-height: 100vh; overflow-x: hidden; }
 .search-wrap input::placeholder { color: var(--text-muted); }
 
 /* ─── SECTIONS ─── */
-.section { display: none; padding: 32px 28px; animation: fadeUp .3s ease; }
+.section {
+  display: none;
+  padding: 32px 28px;
+  animation: fadeUp .3s ease;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
 .section.active { display: block; }
 
 @keyframes fadeUp {
@@ -212,7 +220,16 @@ body { display: flex; min-height: 100vh; overflow-x: hidden; }
 }
 
 /* ─── TABLE ─── */
-.table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+.table-wrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
 
 .data-table {
   width: 100%;
@@ -389,9 +406,23 @@ body { display: flex; min-height: 100vh; overflow-x: hidden; }
 @media (max-width: 768px) {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); }
-  .main { margin-left: 0; }
+  .main {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
   .menu-toggle { display: block; }
   .search-wrap { width: 200px; }
   .topbar { padding: 0 16px; }
-  .section { padding: 20px 16px; }
+  .section {
+    padding: 20px 16px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Keep wide tables inside their own horizontal scroll area */
+  #recentTable { min-width: 650px; }
+  #studentsTable { min-width: 900px; }
 }
